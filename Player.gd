@@ -1,5 +1,6 @@
 extends KinematicBody2D
 var bullet = preload("res://bullet.tscn")
+var knife = preload("res://Knife.tscn")
 var directionLooking = 0
 
 export (int) var speed = 200
@@ -13,6 +14,12 @@ func fire_bullet():
 		get_parent().add_child(b)
 		$RateOfFire.start()
 	
+func melee():
+	if $MeleeCooldown.time_left <= 0:
+		var newKnife = knife.instance()
+		newKnife.setDirection($gun, rotation)
+		get_parent().add_child(newKnife)
+		$MeleeCooldown.start()
 
 func get_input():
 	velocity = Vector2()
@@ -26,6 +33,8 @@ func get_input():
 		velocity.y -= 1
 	if Input.is_action_pressed('mouse_right_down'):
 		fire_bullet()
+	if Input.is_action_pressed('knife'):
+		melee()
 	
 	velocity = velocity.normalized() * speed
 
@@ -35,3 +44,4 @@ func _physics_process(delta):
 	if dir.length() > 5:
 	    rotation = dir.angle()
 	    velocity = move_and_slide(velocity)
+

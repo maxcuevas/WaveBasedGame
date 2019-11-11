@@ -21,3 +21,7 @@ position = Vector2( 30, 0 )
 [node name="RateOfFire" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
+
+[node name="MeleeCooldown" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

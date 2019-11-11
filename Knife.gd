@@ -1,6 +1,6 @@
 extends Area2D
 
-var damage = 10000
+var damage = 100
 var playerReference
 
 func setDirection(player, directionOfFiring):
@@ -9,7 +9,6 @@ func setDirection(player, directionOfFiring):
 
 func _physics_process(delta):
 	position = playerReference.global_position
-	rotation = get_global_mouse_position().angle()
 
 func _on_Knife_body_entered(body):
 	if "enemy" in body.name:

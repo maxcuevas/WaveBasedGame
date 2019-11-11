@@ -3,9 +3,12 @@ var bullet = preload("res://bullet.tscn")
 var knife = preload("res://Knife.tscn")
 var directionLooking = 0
 
+signal death
+
 export (int) var speed = 200
 
 var velocity = Vector2()
+var healthPoints = 100
 
 func fire_bullet():
 	if $RateOfFire.time_left <= 0:
@@ -39,9 +42,16 @@ func get_input():
 	velocity = velocity.normalized() * speed
 
 func _physics_process(delta):
+	$Sprite.modulate = Color(1, 1, 1)	
 	get_input()
 	var dir = get_global_mouse_position() - global_position
 	if dir.length() > 5:
 	    rotation = dir.angle()
 	    velocity = move_and_slide(velocity)
+	if healthPoints <= 0:
+		emit_signal("death")
+		queue_free()
 
+func takeDamage(damageTaken):
+	$Sprite.modulate = Color(1, 0, 0)	
+	healthPoints-=damageTaken

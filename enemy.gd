@@ -9,6 +9,7 @@ var speed = 100
 
 func hit(damage):
 	$Sprite.modulate = Color(1, 0, 0)	
+	$AudioStreamPlayer2D.play()
 	healthPoints-=damage
 	if healthPoints <= 0:
 		queue_free()

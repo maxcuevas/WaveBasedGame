@@ -1,7 +1,6 @@
 extends KinematicBody2D
 var bullet = preload("res://bullet.tscn")
 var knife = preload("res://Knife.tscn")
-var directionLooking = 0
 
 signal death
 signal current_health

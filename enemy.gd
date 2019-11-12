@@ -6,16 +6,52 @@ var hunting = false
 var inMeleeRange = false
 var playerBody = Vector2()
 var speed = 100
+var damage_taken_label_original_position
+var timers_for_damage_taken_labels = []
+var damage_taken_labels = []
+
+
+func _ready():
+	damage_taken_label_original_position = $DamageTakenLabel.rect_position
 
 func hit(damage):
 	$Sprite.modulate = Color(1, 0, 0)	
 	$AudioStreamPlayer2D.play()
+	
+	timers_for_damage_taken_labels.append(Timer.new())
+	add_child(timers_for_damage_taken_labels.back())
+	timers_for_damage_taken_labels.back().wait_time = 0.5
+	timers_for_damage_taken_labels.back().one_shot = true
+	timers_for_damage_taken_labels.back().start()
+	
+	damage_taken_labels.append(Label.new())
+	add_child(damage_taken_labels.back())
+	damage_taken_labels.back().rect_position = damage_taken_label_original_position
+	damage_taken_labels.back().text = str(damage)
+	
 	healthPoints-=damage
 	if healthPoints <= 0:
 		queue_free()
+		
 
 func _physics_process(delta):
 	$Sprite.modulate = Color(1, 1,1)
+	
+#	if !timers_for_damage_taken_labels.empty():
+#		print_debug(timers_for_damage_taken_labels.back().time_left)
+	for i in range(0, timers_for_damage_taken_labels.size()):
+		print_debug("current time: "+str(i) + "current size of array:" 
+		+ str(timers_for_damage_taken_labels.size()))
+		var deleteMe = timers_for_damage_taken_labels[i].time_left
+		if timers_for_damage_taken_labels[i].time_left <= 0:
+			timers_for_damage_taken_labels[i].queue_free()
+			damage_taken_labels[i].queue_free()
+	
+#	if $DamageTakenLabelTimer.time_left <= 0:
+#		$DamageTakenLabel.text = ""
+#
+#	$DamageTakenLabel.rect_global_position+= Vector2(0,-0.25)
+	
 	if hunting:
 		var distanceFromPlayer = (playerBody.global_position - global_position).normalized()
 		move_and_slide(distanceFromPlayer * speed)

@@ -37,20 +37,17 @@ func hit(damage):
 func _physics_process(delta):
 	$Sprite.modulate = Color(1, 1,1)
 	
-#	if !timers_for_damage_taken_labels.empty():
-#		print_debug(timers_for_damage_taken_labels.back().time_left)
-	for i in range(0, timers_for_damage_taken_labels.size()):
-		print_debug("current time: "+str(i) + "current size of array:" 
-		+ str(timers_for_damage_taken_labels.size()))
-		var deleteMe = timers_for_damage_taken_labels[i].time_left
-		if timers_for_damage_taken_labels[i].time_left <= 0:
-			timers_for_damage_taken_labels[i].queue_free()
-			damage_taken_labels[i].queue_free()
 	
-#	if $DamageTakenLabelTimer.time_left <= 0:
-#		$DamageTakenLabel.text = ""
-#
-#	$DamageTakenLabel.rect_global_position+= Vector2(0,-0.25)
+	for i in range(timers_for_damage_taken_labels.size() -1, -1 ,-1):
+		print_debug(timers_for_damage_taken_labels[i].time_left)
+		if timers_for_damage_taken_labels[i].time_left <= 0:
+			damage_taken_labels[i].queue_free()
+			damage_taken_labels.remove(i)
+			timers_for_damage_taken_labels[i].queue_free()
+			timers_for_damage_taken_labels.remove(i)
+	
+	for i in damage_taken_labels:
+		i.rect_global_position+= Vector2(0,-0.5)
 	
 	if hunting:
 		var distanceFromPlayer = (playerBody.global_position - global_position).normalized()

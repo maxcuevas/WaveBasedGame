@@ -37,7 +37,6 @@ func hit(damage):
 func _physics_process(delta):
 	$Sprite.modulate = Color(1, 1,1)
 	
-	
 	for i in range(timers_for_damage_taken_labels.size() -1, -1 ,-1):
 		print_debug(timers_for_damage_taken_labels[i].time_left)
 		if timers_for_damage_taken_labels[i].time_left <= 0:

@@ -1,5 +1,6 @@
 extends KinematicBody2D
 var health_item = preload("res://HealthItem.tscn")
+var ammo_item = preload("res://Ammunition.tscn")
 
 var healthPoints = 100
 var damage = 10
@@ -14,6 +15,7 @@ var points_entity_is_worth = 10
 
 signal died(points_worth_kill)
 signal create_health_drop(health_dropped)
+signal create_ammo_drop(ammo_dropped)
 
 func _ready():
 	damage_taken_label_original_position = $DamageTakenLabel.rect_position
@@ -45,6 +47,13 @@ func hit(damage):
 			var health_drop = health_item.instance()
 			health_drop.create(global_position)
 			emit_signal("create_health_drop",health_drop)
+		
+		random_number = rng.randi_range(0,100)
+		
+		if random_number <= 30 and random_number >= 0 :
+			var ammo_drop = ammo_item.instance()
+			ammo_drop.create(global_position)
+			emit_signal("create_ammo_drop",ammo_drop)
 		
 		queue_free()
 		

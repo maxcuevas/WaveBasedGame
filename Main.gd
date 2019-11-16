@@ -10,6 +10,7 @@ func _on_EnemyRespawnTimer_timeout():
 	var newEnemy : KinematicBody2D = enemy.instance()
 	newEnemy.connect("died",self, "_on_enemy_died")
 	newEnemy.connect("create_health_drop", self, "_on_enemy_health_drop")
+	newEnemy.connect("create_ammo_drop", self, "_on_enemy_ammo_drop")
 	newEnemy.global_position = Vector2(x_location,y_location)
 	add_child(newEnemy)
 	
@@ -20,6 +21,9 @@ func _on_enemy_died(points_worth_kill):
 
 func _on_enemy_health_drop(health_dropped):
 	add_child(health_dropped)
+	
+func _on_enemy_ammo_drop(ammo_dropped):
+	add_child(ammo_dropped)
 
 func _on_Player_death():
 	get_tree().paused = true
@@ -31,3 +35,7 @@ func _on_Player_current_health(current_health_percentage):
 
 func _on_Player_position_changed(position):
 	$Camera2D.global_position = position
+
+
+func _on_Player_current_ammunition(ammunition):
+	$Camera2D/AmmunitionCountLabel.text = str(ammunition)

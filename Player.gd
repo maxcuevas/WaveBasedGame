@@ -5,12 +5,14 @@ var knife = preload("res://Knife.tscn")
 signal death
 signal current_health
 signal position_changed(position)
+signal current_ammunition(ammunition)
 
-export (int) var speed = 200
+var speed = 200
 
 var velocity = Vector2()
 var health_points = 100
 var max_health_points = 100
+var ammunition = 50
 
 
 func _ready():
@@ -23,7 +25,8 @@ func _on_health_item_detected(who):
 
 
 func fire_bullet():
-	if $RateOfFire.time_left <= 0:
+	if $RateOfFire.time_left <= 0 && ammunition > 0:
+		ammunition-=1
 		var b = bullet.instance()
 		b.setDirectionOfFireAndLocation($gun.global_position, rotation)
 		get_parent().add_child(b)
@@ -62,6 +65,7 @@ func _physics_process(delta):
 	emit_signal("position_changed",global_position)
 	var health_percent : float = (float(health_points)/ float(max_health_points)) * 100.0
 	emit_signal("current_health",health_percent)
+	emit_signal("current_ammunition",ammunition)
 	if health_points <= 0:
 		emit_signal("death")
 		queue_free()

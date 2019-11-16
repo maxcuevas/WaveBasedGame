@@ -88,6 +88,21 @@ margin_bottom = 97.0
 rect_rotation = 90.0
 text = "0"
 
+[node name="AmmunitionLabel" type="Label" parent="Camera2D"]
+margin_left = 200.0
+margin_top = -460.0
+margin_right = 284.0
+margin_bottom = -446.0
+rect_rotation = 90.0
+text = "Ammunition:"
+
+[node name="AmmunitionCountLabel" type="Label" parent="Camera2D"]
+margin_left = 200.0
+margin_top = -375.0
+margin_right = 240.0
+margin_bottom = -361.0
+rect_rotation = 90.0
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 4 )
 format = 1
@@ -112,6 +127,7 @@ material = SubResource( 3 )
 position = Vector2( 470, 220 )
 rotation = -1.5708
 [connection signal="timeout" from="EnemyRespawnTimer" to="." method="_on_EnemyRespawnTimer_timeout"]
+[connection signal="current_ammunition" from="Player" to="." method="_on_Player_current_ammunition"]
 [connection signal="current_health" from="Player" to="." method="_on_Player_current_health"]
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 [connection signal="position_changed" from="Player" to="." method="_on_Player_position_changed"]

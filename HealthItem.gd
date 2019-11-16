@@ -10,6 +10,6 @@ func create(position):
 func _on_HealthItem_body_entered(body):
 	if "Player" in body.name:
 		body.health_points+= 25
-		if body.health_points > 100:
+		if body.max_health_points > 100:
 			body.health_points = 100
 		queue_free()

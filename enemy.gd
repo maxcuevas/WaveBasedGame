@@ -1,6 +1,7 @@
 extends KinematicBody2D
+var health_item = preload("res://HealthItem.tscn")
 
-var healthPoints = 500
+var healthPoints = 100
 var damage = 10
 var hunting = false
 var inMeleeRange = false
@@ -9,7 +10,10 @@ var speed = 100
 var damage_taken_label_original_position
 var timers_for_damage_taken_labels = []
 var damage_taken_labels = []
+var points_entity_is_worth = 10
 
+signal died(points_worth_kill)
+signal create_health_drop(health_dropped)
 
 func _ready():
 	damage_taken_label_original_position = $DamageTakenLabel.rect_position
@@ -31,6 +35,17 @@ func hit(damage):
 	
 	healthPoints-=damage
 	if healthPoints <= 0:
+		emit_signal("died",points_entity_is_worth)
+		
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		var random_number = rng.randi_range(0,100)
+		
+		if random_number <= 30 and random_number >= 0 :
+			var health_drop = health_item.instance()
+			health_drop.create(global_position)
+			emit_signal("create_health_drop",health_drop)
+		
 		queue_free()
 		
 
@@ -38,7 +53,6 @@ func _physics_process(delta):
 	$Sprite.modulate = Color(1, 1,1)
 	
 	for i in range(timers_for_damage_taken_labels.size() -1, -1 ,-1):
-		print_debug(timers_for_damage_taken_labels[i].time_left)
 		if timers_for_damage_taken_labels[i].time_left <= 0:
 			damage_taken_labels[i].queue_free()
 			damage_taken_labels.remove(i)

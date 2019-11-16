@@ -12,6 +12,16 @@ var velocity = Vector2()
 var health_points = 100
 var max_health_points = 100
 
+
+func _ready():
+	connect("body_entered", self, "_on_health_item_detected")
+
+
+func _on_health_item_detected(who):
+	if "HealthItem" in who.name:
+		print("on health item")
+
+
 func fire_bullet():
 	if $RateOfFire.time_left <= 0:
 		var b = bullet.instance()
@@ -50,7 +60,6 @@ func _physics_process(delta):
 	    rotation = dir.angle()
 	    velocity = move_and_slide(velocity)
 	emit_signal("position_changed",global_position)
-	
 
 func takeDamage(damageTaken):
 	$Sprite.modulate = Color(1, 0, 0)	

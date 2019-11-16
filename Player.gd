@@ -4,6 +4,7 @@ var knife = preload("res://Knife.tscn")
 
 signal death
 signal current_health
+signal position_changed(position)
 
 export (int) var speed = 200
 
@@ -48,6 +49,7 @@ func _physics_process(delta):
 	if dir.length() > 5:
 	    rotation = dir.angle()
 	    velocity = move_and_slide(velocity)
+	emit_signal("position_changed",global_position)
 	
 
 func takeDamage(damageTaken):

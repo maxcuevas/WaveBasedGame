@@ -60,13 +60,13 @@ func _physics_process(delta):
 	    rotation = dir.angle()
 	    velocity = move_and_slide(velocity)
 	emit_signal("position_changed",global_position)
-
-func takeDamage(damageTaken):
-	$Sprite.modulate = Color(1, 0, 0)	
-	$AudioStreamPlayer2D.play()
-	health_points-=damageTaken
 	var health_percent : float = (float(health_points)/ float(max_health_points)) * 100.0
 	emit_signal("current_health",health_percent)
 	if health_points <= 0:
 		emit_signal("death")
 		queue_free()
+
+func takeDamage(damageTaken):
+	$Sprite.modulate = Color(1, 0, 0)	
+	$AudioStreamPlayer2D.play()
+	health_points-=damageTaken

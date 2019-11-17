@@ -1,5 +1,20 @@
 extends Node2D
 var enemy = preload("res://enemy.tscn")
+var current_level = 1
+var number_of_enemies_left = 6
+
+func _process(delta):
+	$Camera2D/LevelNumberLabel.text = str(current_level)
+	$Camera2D/EnemyCountNumberLabel.text = str(number_of_enemies_left)
+	if number_of_enemies_left <= 0:
+		$EnemyRespawnTimer.stop()
+		new_level()
+		$EnemyRespawnTimer.start()
+
+func new_level():
+	current_level+=1
+	number_of_enemies_left = current_level * 5
+
 
 func _on_EnemyRespawnTimer_timeout():
 	var rng = RandomNumberGenerator.new()
@@ -18,6 +33,7 @@ func _on_EnemyRespawnTimer_timeout():
 func _on_enemy_died(points_worth_kill):
 	var current_points = int($Camera2D/pointCountNumberLabel.text)
 	$Camera2D/pointCountNumberLabel.text = str(points_worth_kill + current_points)
+	number_of_enemies_left-=1
 
 func _on_enemy_health_drop(health_dropped):
 	add_child(health_dropped)

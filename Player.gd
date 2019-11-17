@@ -12,7 +12,7 @@ var speed = 200
 var velocity = Vector2()
 var health_points = 100
 var max_health_points = 100
-var ammunition = 50
+var ammunition = 500
 
 
 func _ready():

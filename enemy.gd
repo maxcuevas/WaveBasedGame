@@ -12,6 +12,7 @@ var damage_taken_label_original_position
 var timers_for_damage_taken_labels = []
 var damage_taken_labels = []
 var points_entity_is_worth = 10
+var crazy = false
 
 signal died(points_worth_kill)
 signal create_health_drop(health_dropped)
@@ -19,6 +20,14 @@ signal create_ammo_drop(ammo_dropped)
 
 func _ready():
 	damage_taken_label_original_position = $DamageTakenLabel.rect_position
+
+func create(current_level):
+	healthPoints+=current_level*10
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var chance_to_be_crazy = rng.randi_range(0, 10)
+	if chance_to_be_crazy <=1:
+		crazy = true
 
 func hit(damage):
 	$Sprite.modulate = Color(1, 0, 0)	
@@ -74,6 +83,9 @@ func _physics_process(delta):
 	if hunting:
 		var distanceFromPlayer = (playerBody.global_position - global_position).normalized()
 		move_and_slide(distanceFromPlayer * speed)
+		
+	if crazy:
+		rotation+=0.3
 	if inMeleeRange and $MeleeCooldown.time_left <= 0:
 		playerBody.takeDamage(damage)
 		$MeleeCooldown.start()

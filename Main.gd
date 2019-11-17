@@ -23,6 +23,7 @@ func _on_EnemyRespawnTimer_timeout():
 	var y_location = rng.randf_range(0.0, 640.0)
 	
 	var newEnemy : KinematicBody2D = enemy.instance()
+	newEnemy.create(current_level)
 	newEnemy.connect("died",self, "_on_enemy_died")
 	newEnemy.connect("create_health_drop", self, "_on_enemy_health_drop")
 	newEnemy.connect("create_ammo_drop", self, "_on_enemy_ammo_drop")

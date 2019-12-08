@@ -1,0 +1,137 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/wall.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/default_white_picture.png" type="Texture" id=2]
+
+[node name="Camera2D" type="Camera2D"]
+position = Vector2( 470, 220 )
+rotation = -1.5708
+current = true
+zoom = Vector2( 0.95, 0.8 )
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="GameOverLabel" type="Label" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -12.0
+margin_top = 10.0
+margin_right = 68.0
+margin_bottom = 41.0
+rect_rotation = 90.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "GAME OVER 
+CASUAL"
+align = 1
+
+[node name="HealthContainer" type="HBoxContainer" parent="."]
+editor/display_folded = true
+margin_left = 230.002
+margin_top = -469.999
+margin_right = 340.002
+margin_bottom = -405.999
+rect_rotation = 90.0
+
+[node name="HealthLabel" type="Label" parent="HealthContainer"]
+margin_top = 25.0
+margin_right = 42.0
+margin_bottom = 39.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "Health"
+
+[node name="HealthBar" type="TextureProgress" parent="HealthContainer"]
+margin_left = 46.0
+margin_right = 110.0
+margin_bottom = 64.0
+value = 100.0
+rounded = true
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+tint_under = Color( 0, 0, 0, 1 )
+tint_over = Color( 0.803922, 0.345098, 0.345098, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+
+[node name="AmmoContainer" type="HBoxContainer" parent="."]
+editor/display_folded = true
+margin_left = 160.002
+margin_top = -469.999
+margin_right = 248.002
+margin_bottom = -429.999
+rect_rotation = 90.0
+
+[node name="AmmunitionLabel" type="Label" parent="AmmoContainer"]
+margin_top = 13.0
+margin_right = 84.0
+margin_bottom = 27.0
+text = "Ammunition:"
+
+[node name="AmmunitionCountLabel" type="Label" parent="AmmoContainer"]
+margin_left = 88.0
+margin_top = 13.0
+margin_right = 88.0
+margin_bottom = 27.0
+
+[node name="LevelContainer" type="HBoxContainer" parent="."]
+editor/display_folded = true
+margin_left = 220.0
+margin_top = -59.9992
+margin_right = 262.0
+margin_bottom = -19.9992
+rect_rotation = 90.0
+
+[node name="LevelLabel" type="Label" parent="LevelContainer"]
+margin_top = 13.0
+margin_right = 38.0
+margin_bottom = 27.0
+text = "Level:"
+
+[node name="LevelNumberLabel" type="Label" parent="LevelContainer"]
+margin_left = 42.0
+margin_top = 13.0
+margin_right = 42.0
+margin_bottom = 27.0
+
+[node name="PointsContainer" type="HBoxContainer" parent="."]
+margin_left = 200.0
+margin_top = -59.9993
+margin_right = 345.0
+margin_bottom = -19.9993
+rect_rotation = 90.0
+
+[node name="pointCountLabel" type="Label" parent="PointsContainer"]
+margin_top = 13.0
+margin_right = 133.0
+margin_bottom = 27.0
+text = "Current Point Count: "
+
+[node name="pointCountNumberLabel" type="Label" parent="PointsContainer"]
+margin_left = 137.0
+margin_top = 13.0
+margin_right = 145.0
+margin_bottom = 27.0
+text = "0"
+
+[node name="EnemyContainer" type="HBoxContainer" parent="."]
+margin_left = 180.0
+margin_top = -59.9994
+margin_right = 268.0
+margin_bottom = -19.9994
+rect_rotation = 90.0
+
+[node name="EnemyCountLabel" type="Label" parent="EnemyContainer"]
+margin_top = 13.0
+margin_right = 84.0
+margin_bottom = 27.0
+text = "Enemies left:"
+
+[node name="EnemyCountNumberLabel" type="Label" parent="EnemyContainer"]
+margin_left = 88.0
+margin_top = 13.0
+margin_right = 88.0
+margin_bottom = 27.0

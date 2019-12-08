@@ -16,8 +16,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Game"
-run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Map/Main.tscn"
+config/icon="res://Sprites/icon.png"
 
 [input]
 
